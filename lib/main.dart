@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gr_vs_ar/pages/home_screen.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainGoRouterApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MainGoRouterApp extends StatelessWidget {
+  MainGoRouterApp({super.key});
+
+  // GoRouter configuration
+  final _router = GoRouter(
+    routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
+  );
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+    return MaterialApp.router(routerConfig: _router);
   }
 }
