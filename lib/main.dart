@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gr_vs_ar/router/auto_route_router.dart';
-import 'package:gr_vs_ar/router/go_router_router.dart';
+import 'package:gr_vs_ar/router/auto_route/auto_route_router.dart';
+import 'package:gr_vs_ar/router/go_router/go_router_router.dart';
 
 void main() {
   runApp(ComparisonApp());

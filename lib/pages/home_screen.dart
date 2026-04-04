@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gr_vs_ar/pages/full_of_parameters_screen.dart';
-import 'package:gr_vs_ar/router/auto_route_router.dart';
+import 'package:gr_vs_ar/router/auto_route/auto_route_router.dart';
 import 'package:gr_vs_ar/router/router_type.dart';
 
 @RoutePage()
