@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gr_vs_ar/router/auto_route_router.dart';
 import 'package:gr_vs_ar/router/go_router_router.dart';
 
@@ -7,45 +8,49 @@ void main() {
 }
 
 class ComparisonApp extends StatelessWidget {
-  const ComparisonApp({super.key});
+  ComparisonApp({super.key});
+
+  final _goRouterRouter = GoRouterRouter.router();
+  final _autoRouteRouter = AutoRouteRouter();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GoRouter vs AutoRoute',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: _SplitScreen(),
+      home: _SplitScreen(_goRouterRouter, _autoRouteRouter),
     );
   }
 }
 
 class GoRouterPanel extends StatelessWidget {
-  GoRouterPanel({super.key});
+  const GoRouterPanel({super.key, required this.router});
 
   // GoRouter configuration
-  final _router = GoRouterRouter.router();
+  final GoRouter router;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: _router);
+    return MaterialApp.router(routerConfig: router);
   }
 }
 
 class AutoRoutePanel extends StatelessWidget {
-  AutoRoutePanel({super.key});
+  const AutoRoutePanel({super.key, required this.router});
 
-  // make sure you don't initiate your router
-  // inside of the build function.
-  final _appRouter = AutoRouteRouter();
+  final AutoRouteRouter router;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: _appRouter.config());
+    return MaterialApp.router(routerConfig: router.config());
   }
 }
 
 class _SplitScreen extends StatelessWidget {
-  const _SplitScreen();
+  const _SplitScreen(this._goRouterRouter, this._autoRouteRouter);
+
+  final GoRouter _goRouterRouter;
+  final AutoRouteRouter _autoRouteRouter;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,7 @@ class _SplitScreen extends StatelessWidget {
             child: Column(
               children: [
                 _PanelHeader(title: 'GoRouter', color: Colors.blue),
-                Expanded(child: GoRouterPanel()),
+                Expanded(child: GoRouterPanel(router: _goRouterRouter)),
               ],
             ),
           ),
@@ -65,7 +70,7 @@ class _SplitScreen extends StatelessWidget {
             child: Column(
               children: [
                 _PanelHeader(title: 'AutoRoute', color: Colors.green),
-                Expanded(child: GoRouterPanel()),
+                Expanded(child: AutoRoutePanel(router: _autoRouteRouter)),
               ],
             ),
           ),
