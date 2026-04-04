@@ -11,6 +11,120 @@
 part of 'auto_route_router.dart';
 
 /// generated route for
+/// [DeeplinkProductScreen]
+class DeeplinkProductRoute extends PageRouteInfo<DeeplinkProductRouteArgs> {
+  DeeplinkProductRoute({
+    Key? key,
+    required String id,
+    String? color,
+    List<PageRouteInfo>? children,
+  }) : super(
+         DeeplinkProductRoute.name,
+         args: DeeplinkProductRouteArgs(key: key, id: id, color: color),
+         rawPathParams: {'id': id},
+         rawQueryParams: {'color': color},
+         initialChildren: children,
+       );
+
+  static const String name = 'DeeplinkProductRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final queryParams = data.queryParams;
+      final args = data.argsAs<DeeplinkProductRouteArgs>(
+        orElse: () => DeeplinkProductRouteArgs(
+          id: pathParams.getString('id'),
+          color: queryParams.optString('color'),
+        ),
+      );
+      return DeeplinkProductScreen(
+        key: args.key,
+        id: args.id,
+        color: args.color,
+      );
+    },
+  );
+}
+
+class DeeplinkProductRouteArgs {
+  const DeeplinkProductRouteArgs({this.key, required this.id, this.color});
+
+  final Key? key;
+
+  final String id;
+
+  final String? color;
+
+  @override
+  String toString() {
+    return 'DeeplinkProductRouteArgs{key: $key, id: $id, color: $color}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! DeeplinkProductRouteArgs) return false;
+    return key == other.key && id == other.id && color == other.color;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ id.hashCode ^ color.hashCode;
+}
+
+/// generated route for
+/// [DeeplinkUserScreen]
+class DeeplinkUserRoute extends PageRouteInfo<DeeplinkUserRouteArgs> {
+  DeeplinkUserRoute({
+    Key? key,
+    required String id,
+    List<PageRouteInfo>? children,
+  }) : super(
+         DeeplinkUserRoute.name,
+         args: DeeplinkUserRouteArgs(key: key, id: id),
+         rawPathParams: {'id': id},
+         initialChildren: children,
+       );
+
+  static const String name = 'DeeplinkUserRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<DeeplinkUserRouteArgs>(
+        orElse: () => DeeplinkUserRouteArgs(id: pathParams.getString('id')),
+      );
+      return DeeplinkUserScreen(key: args.key, id: args.id);
+    },
+  );
+}
+
+class DeeplinkUserRouteArgs {
+  const DeeplinkUserRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final String id;
+
+  @override
+  String toString() {
+    return 'DeeplinkUserRouteArgs{key: $key, id: $id}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! DeeplinkUserRouteArgs) return false;
+    return key == other.key && id == other.id;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ id.hashCode;
+}
+
+/// generated route for
 /// [FullOfParametersScreen]
 class FullOfParametersRoute extends PageRouteInfo<FullOfParametersRouteArgs> {
   FullOfParametersRoute({

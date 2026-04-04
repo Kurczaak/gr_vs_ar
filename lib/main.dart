@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gr_vs_ar/router/auto_route/auto_route_router.dart';
+import 'package:gr_vs_ar/router/auto_route/deeplink_builder.dart';
 import 'package:gr_vs_ar/router/go_router/go_router_router.dart';
 
 void main() {
@@ -15,10 +16,13 @@ class ComparisonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _autoRouteRouter.config(
+        deepLinkBuilder: AutoRouteConfig.deeplinkBuilder,
+      ),
       title: 'GoRouter vs AutoRoute',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: _SplitScreen(_goRouterRouter, _autoRouteRouter),
+      // _SplitScreen(_goRouterRouter, _autoRouteRouter),
     );
   }
 }
@@ -42,7 +46,11 @@ class AutoRoutePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: router.config());
+    return MaterialApp.router(
+      routerConfig: router.config(
+        deepLinkBuilder: AutoRouteConfig.deeplinkBuilder,
+      ),
+    );
   }
 }
 

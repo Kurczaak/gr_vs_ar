@@ -1,0 +1,21 @@
+import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
+
+abstract final class AutoRouteConfig {
+  static FutureOr<DeepLink> deeplinkBuilder(PlatformDeepLink deepLink) {
+    print('Received deep link: ${deepLink.uri}');
+    if (kIsWeb) {
+      return deepLink;
+    }
+    final uri = deepLink.uri;
+    if (uri.scheme == 'grvsar') {
+      return DeepLink.path(uri.replace(scheme: '', host: '').toString());
+    }
+    if (uri.fragment == '/' || uri.fragment.isEmpty) {
+      return DeepLink.defaultPath;
+    }
+    return DeepLink.path(uri.fragment);
+  }
+}
