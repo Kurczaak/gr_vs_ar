@@ -1,11 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gr_vs_ar/pages/full_of_parameters_screen.dart';
 import 'package:gr_vs_ar/pages/home_screen.dart';
+import 'package:gr_vs_ar/pages/nested/scaffold_with_nav_bar.dart';
+import 'package:gr_vs_ar/pages/nested/tab_details_screen.dart';
+import 'package:gr_vs_ar/pages/nested/tab_root_screen.dart';
+import 'package:gr_vs_ar/router/go_router_observer.dart';
 import 'package:gr_vs_ar/router/router_type.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final _sectionANavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'sectionA');
 
 class GoRouterRouter {
   static GoRouter router() {
     return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: '/',
+      observers: [GoRouterObserver()],
       routes: [
         GoRoute(
           path: '/',
@@ -16,11 +27,80 @@ class GoRouterRouter {
           path: '/fullOfParameters',
           name: 'fullOfParameters',
           builder: (context, state) {
-            // Extract parameters from the state if needed
             return FullOfParametersScreen(
               args: state.extra as FullOfParametersScreenArgs,
             );
           },
+        ),
+
+        // Indexed (stateful) shell route – each branch keeps its own
+        // navigator stack, so tab state is preserved when switching tabs.
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) =>
+              ScaffoldWithNavBar(navigationShell: navigationShell),
+          notifyRootObserver: true,
+          branches: [
+            // ── Tab A ──────────────────────────────────────────────────────
+            StatefulShellBranch(
+              navigatorKey: _sectionANavigatorKey,
+              routes: [
+                GoRoute(
+                  path: '/a',
+                  builder: (context, state) => const TabRootScreen(
+                    label: 'A',
+                    detailsPath: '/a/details',
+                  ),
+                  routes: [
+                    GoRoute(
+                      path: 'details',
+                      builder: (context, state) =>
+                          const TabDetailsScreen(label: 'A'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            // ── Tab B ──────────────────────────────────────────────────────
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/b',
+                  builder: (context, state) => const TabRootScreen(
+                    label: 'B',
+                    detailsPath: '/b/details',
+                  ),
+                  routes: [
+                    GoRoute(
+                      path: 'details',
+                      builder: (context, state) =>
+                          const TabDetailsScreen(label: 'B'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            // ── Tab C ──────────────────────────────────────────────────────
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/c',
+                  builder: (context, state) => const TabRootScreen(
+                    label: 'C',
+                    detailsPath: '/c/details',
+                  ),
+                  routes: [
+                    GoRoute(
+                      path: 'details',
+                      builder: (context, state) =>
+                          const TabDetailsScreen(label: 'C'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );
