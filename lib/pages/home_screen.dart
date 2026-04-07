@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gr_vs_ar/pages/full_of_parameters_screen.dart';
 import 'package:gr_vs_ar/router/auto_route_router.dart';
 import 'package:gr_vs_ar/router/router_type.dart';
+import 'package:gr_vs_ar/router/type_safe_routes.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -22,11 +23,16 @@ class HomeScreen extends StatelessWidget {
               onPressed: () => _navigateToFullOfParametersScreen(context),
               child: Text('Go to full of parameters screen'),
             ),
-            if (routerType == RouterType.goRouter)
+            if (routerType == RouterType.goRouter) ...[
               ElevatedButton(
                 onPressed: () => context.go('/a'),
                 child: const Text('Go to indexed navigation example'),
               ),
+              ElevatedButton(
+                onPressed: () => TypeSafeDemoRoute().push(context),
+                child: const Text('Type-safe routes demo'),
+              ),
+            ],
           ],
         ),
       ),
