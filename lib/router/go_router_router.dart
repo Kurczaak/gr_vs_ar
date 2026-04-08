@@ -5,6 +5,10 @@ import 'package:gr_vs_ar/pages/home_screen.dart';
 import 'package:gr_vs_ar/pages/nested/scaffold_with_nav_bar.dart';
 import 'package:gr_vs_ar/pages/nested/tab_details_screen.dart';
 import 'package:gr_vs_ar/pages/nested/tab_root_screen.dart';
+import 'package:gr_vs_ar/pages/stack_demo/destination_screen.dart';
+import 'package:gr_vs_ar/pages/stack_demo/stack_demo_intro_screen.dart';
+import 'package:gr_vs_ar/pages/stack_demo/stack_demo_screen.dart';
+import 'package:gr_vs_ar/pages/stack_demo/step_screen.dart';
 import 'package:gr_vs_ar/router/go_router_observer.dart';
 import 'package:gr_vs_ar/router/router_type.dart';
 import 'package:gr_vs_ar/router/type_safe_routes.dart';
@@ -35,6 +39,35 @@ class GoRouterRouter {
               args: state.extra as FullOfParametersScreenArgs,
             );
           },
+        ),
+
+        // ── Stack manipulation demo routes ─────────────────────────────────
+        GoRoute(
+          path: '/stack-demo-intro',
+          name: 'stack-demo-intro',
+          builder: (context, state) => const StackDemoIntroScreen(),
+          routes: [
+            GoRoute(
+              path: 'stack-demo',
+              name: 'stack-demo',
+              builder: (context, state) => const StackDemoScreen(),
+              routes: [
+                GoRoute(
+                  name: 'step',
+                  path: 'step/:step',
+                  builder: (context, state) => StepScreen(
+                    step: int.parse(state.pathParameters['step']!),
+                    strategy: state.extra as StackDemoStrategy,
+                  ),
+                ),
+                GoRoute(
+                  path: 'destination',
+                  name: 'destination',
+                  builder: (context, state) => const DestinationScreen(),
+                ),
+              ],
+            ),
+          ],
         ),
 
         // Indexed (stateful) shell route – each branch keeps its own
