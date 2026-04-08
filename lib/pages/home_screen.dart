@@ -22,6 +22,12 @@ class HomeScreen extends StatelessWidget {
               onPressed: () => _navigateToFullOfParametersScreen(context),
               child: Text('Go to full of parameters screen'),
             ),
+            if (routerType == RouterType.autoRoute)
+              ElevatedButton(
+                onPressed: () =>
+                    context.router.push(const ArStackDemoIntroRoute()),
+                child: const Text('push vs pushAndPopUntil – stack demo'),
+              ),
             if (routerType == RouterType.goRouter) ...[
               ElevatedButton(
                 onPressed: () => context.go('/a'),

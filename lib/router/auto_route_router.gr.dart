@@ -11,6 +11,108 @@
 part of 'auto_route_router.dart';
 
 /// generated route for
+/// [ArDestinationScreen]
+class ArDestinationRoute extends PageRouteInfo<void> {
+  const ArDestinationRoute({List<PageRouteInfo>? children})
+    : super(ArDestinationRoute.name, initialChildren: children);
+
+  static const String name = 'ArDestinationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ArDestinationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ArStackDemoIntroScreen]
+class ArStackDemoIntroRoute extends PageRouteInfo<void> {
+  const ArStackDemoIntroRoute({List<PageRouteInfo>? children})
+    : super(ArStackDemoIntroRoute.name, initialChildren: children);
+
+  static const String name = 'ArStackDemoIntroRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ArStackDemoIntroScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ArStackDemoScreen]
+class ArStackDemoRoute extends PageRouteInfo<void> {
+  const ArStackDemoRoute({List<PageRouteInfo>? children})
+    : super(ArStackDemoRoute.name, initialChildren: children);
+
+  static const String name = 'ArStackDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ArStackDemoScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ArStepScreen]
+class ArStepRoute extends PageRouteInfo<ArStepRouteArgs> {
+  ArStepRoute({
+    required int step,
+    required ArStackDemoStrategy strategy,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ArStepRoute.name,
+         args: ArStepRouteArgs(step: step, strategy: strategy, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'ArStepRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ArStepRouteArgs>();
+      return ArStepScreen(
+        step: args.step,
+        strategy: args.strategy,
+        key: args.key,
+      );
+    },
+  );
+}
+
+class ArStepRouteArgs {
+  const ArStepRouteArgs({required this.step, required this.strategy, this.key});
+
+  final int step;
+
+  final ArStackDemoStrategy strategy;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ArStepRouteArgs{step: $step, strategy: $strategy, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ArStepRouteArgs) return false;
+    return step == other.step && strategy == other.strategy && key == other.key;
+  }
+
+  @override
+  int get hashCode => step.hashCode ^ strategy.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [FullOfParametersScreen]
 class FullOfParametersRoute extends PageRouteInfo<FullOfParametersRouteArgs> {
   FullOfParametersRoute({
